@@ -1,0 +1,96 @@
+{
+  "users": [
+    {
+      "id": "11b9",
+      "fullName": "wygudygdwhghdh re",
+      "email": "radha.agarwal300145@gmail.com",
+      "password": "123",
+      "role": "user"
+    },
+    {
+      "id": "2def",
+      "fullName": "wygudygdwhghdh we",
+      "email": "radha.agarwal301@gmail.com",
+      "password": "123",
+      "role": "user"
+    },
+    {
+      "id": "0e02",
+      "fullName": "w w",
+      "email": "radha.agarwal31@gmail.com",
+      "password": "123",
+      "role": "user"
+    },
+    {
+      "id": "da17",
+      "fullName": "w w",
+      "email": "radha.agarwal300145@gmail.com",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": "89bc",
+      "fullName": "w w",
+      "email": "radha.agarwal3001@gmail.com",
+      "password": "123",
+      "role": "user"
+    },
+    {
+      "id": "cbb9",
+      "fullName": "w w",
+      "email": "radha.agaal3010@gmail.com",
+      "password": "123",
+      "role": "user"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "d678",
+      "title": "some",
+      "description": "some data",
+      "status": "PENDING",
+      "dueDate": "2024-10-21",
+      "email": "radha.agarwal3001@gmail.com"
+    },
+    {
+      "id": "f16c",
+      "title": "title",
+      "description": "description new data added",
+      "status": "COMPLETED",
+      "dueDate": "2024-10-21",
+      "email": "radha.agarwal3001@gmail.com"
+    },
+    {
+      "id": "243f",
+      "title": "new",
+      "description": "new des",
+      "status": "COMPLETED",
+      "dueDate": "2024-10-21",
+      "email": "radha.agarwal3001@gmail.com"
+    },
+    {
+      "id": "839a",
+      "title": "another",
+      "description": "sample       ",
+      "status": "COMPLETED",
+      "dueDate": "2024-10-21",
+      "email": "radha.agarwal3001@gmail.com"
+    },
+    {
+      "id": "6a47",
+      "title": "new task",
+      "description": "       des",
+      "status": "PENDING",
+      "dueDate": "2024-10-21",
+      "email": "radha.agarwal3001@gmail.com"
+    },
+    {
+      "id": "268e",
+      "title": "yguds",
+      "description": "       gyugyfeugyguyfsd bdsfyuydusuhdsuhds ygdfsgdgusyfgyudsd dfusydhusfdfsgdsfug dfsgyhsdfsudfy huge data",
+      "status": "COMPLETED",
+      "dueDate": "2024-10-20",
+      "email": "radha.agarwal3001@gmail.com"
+    }
+  ]
+}

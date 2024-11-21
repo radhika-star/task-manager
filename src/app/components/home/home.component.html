@@ -1,0 +1,38 @@
+<div class="card" >
+  <p-menubar [model]="items" > <h3>TASK MANAGEMENT SYSTEM </h3>
+    <ng-template pTemplate="item" let-item>
+      <ng-container *ngIf="item.route; else urlRef">
+          <a [routerLink]="item.route" class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-container>
+      <ng-template #urlRef>
+          <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-template>
+      <ng-template #noLink>
+          <div class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+              <span class="pi pi-fw pi-angle-down ml-2"></span>
+          </div>
+      </ng-template>
+  </ng-template>
+  </p-menubar>
+</div>
+
+<div class="card" style="display: flex;align-items: center;justify-content: center;padding-top: 100px;">
+  <p-galleria
+      [value]="images"
+      [showIndicators]="true"
+      [showThumbnails]="false"
+      [responsiveOptions]="responsiveOptions"
+      [containerStyle]="{ 'max-width': '640px' }">
+          <ng-template pTemplate="item" let-item>
+              <img [src]="item.itemImageSrc" style="width: 640px; height: 440px; display: center;" />
+          </ng-template>
+  </p-galleria>
+</div>

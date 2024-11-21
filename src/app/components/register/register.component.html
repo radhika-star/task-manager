@@ -1,0 +1,159 @@
+<div class="card" >
+  <p-menubar [model]="items" > <h3>TASK MANAGEMENT SYSTEM </h3>
+    <ng-template pTemplate="item" let-item>
+      <ng-container *ngIf="item.route; else urlRef">
+          <a [routerLink]="item.route" class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-container>
+      <ng-template #urlRef>
+          <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-template>
+      <ng-template #noLink>
+          <div class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+              <span class="pi pi-fw pi-angle-down ml-2"></span>
+          </div>
+      </ng-template>
+  </ng-template>
+  </p-menubar>
+</div>
+<p-messages></p-messages>
+
+<div class="mt-3 content-image-wrapper relative  w-full flex align-items-center justify-content-center min-h-screen">
+  <p-card header="Register" [style]="{ width: '400px' }">
+    <form #registerForm="ngForm" (ngSubmit)="onRegister()">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input type="text"
+        pInputText
+        [(ngModel)]="register.fullName"
+        id="fullName"
+        name="fullName"
+        #fullName="ngModel"
+        class="w-full"
+        required
+        pattern="^[a-zA-Z]+ [a-zA-Z]+$" />
+      </div>
+      @if(fullName.invalid && (fullName.dirty || fullName.touched)){
+        <small class="block p-error">
+          @if(fullName.hasError('required')) {
+          <span>Full Name is required</span>
+          } @else if(fullName.errors) {
+          <span>Full Name is invalid</span>
+          }
+        </small>
+        }
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text"
+        pInputText
+        [(ngModel)]="register.email"
+        class="w-full"
+        id="email"
+        name="email"
+        #email="ngModel"
+        required
+        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+      </div>
+      @if(email.invalid && (email.dirty || email.touched)){
+        <small class="block p-error">
+          @if(email.hasError('required')) {
+          <span>Email is required</span>
+          } @else if(email.errors && email.hasError('pattern')) {
+          <span>Email is invalid</span>
+          }
+        </small>
+        }
+      <div class="field">
+        <label for="password">Password</label>
+        <p-password [(ngModel)]="register.password"
+        [feedback]="false"
+        [toggleMask]="true"
+        inputId="password"
+        name="password"
+        #password="ngModel"
+        inputStyleClass="w-full"
+        styleClass="w-full"
+        required/>
+      </div>
+      @if(password.invalid && (password.dirty || password.touched)){
+        <small class="block p-error">
+          @if(password.hasError('required')) {
+          <span>Password is required</span>
+          } @else if(password.errors) {
+          <span>Password is invalid</span>
+          }
+        </small>
+        }
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <p-password [(ngModel)]="register.confirmPassword"
+          (keyup)="passwordCheck(register.password,register.confirmPassword)"
+          [feedback]="false"
+          [toggleMask]="true"
+          inputId="confirmPassword"
+          name="confirmPassword"
+          #confirmPassword="ngModel"
+          inputStyleClass="w-full"
+          styleClass="w-full"
+          required/>
+        </div>
+        @if(confirmPassword.touched){
+          <small class="block p-error">
+            @if(confirmPassword.hasError('required')) {
+            <span>Confirm Password is required</span>
+            } @else {
+              <span *ngIf='!isMatch'>Passwords do not match</span>
+            }
+          </small>
+          }
+          <div class="flex flex-wrap gap-3">
+            <label for="roles">Role:</label>
+            <div class="flex align-items-center">
+                <p-radioButton
+                    name="Admin"
+                    value="ADMIN"
+                    [(ngModel)]="role"
+                    inputId="role1"
+                     />
+                <label for="role1" class="ml-2">
+                    Admin
+                </label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton
+                    name="User"
+                    value="USER"
+                    [(ngModel)]="role"
+                     inputId="role2"
+                    />
+                <label for="role2" class="ml-2">
+                    User
+                </label>
+            </div>
+            <br>
+            @if(role==undefined){
+              <small class="block p-error">
+                @if(role==undefined) {
+                <span>Role is required</span>
+                }
+              </small>
+              }
+        </div>
+        <br>
+    </form>
+    <p-button label="SIGN UP"
+    styleClass="w-full"
+    [disabled]="registerForm.invalid || !isMatch || role==undefined"
+    type="submit" (onClick)="onRegister()"></p-button>
+    <div class="mt-2">Already a member? <a routerLink="/login">Login</a></div>
+  </p-card>
+</div>
+

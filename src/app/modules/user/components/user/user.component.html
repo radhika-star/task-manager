@@ -1,0 +1,148 @@
+
+<p-toast />
+<p-confirmDialog />
+<div class="card" >
+  <p-menubar [model]="items" > <h3>USER HOME PAGE </h3>
+    <ng-template pTemplate="item" let-item>
+      <ng-container *ngIf="item.route; else urlRef">
+          <a [routerLink]="item.route" class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-container>
+      <ng-template #urlRef>
+          <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-template>
+      <ng-template #noLink>
+          <div class="p-menuitem-link">
+              <span [class]="item.icon"></span>
+              <span class="ml-2">{{ item.label }}</span>
+              <span class="pi pi-fw pi-angle-down ml-2"></span>
+          </div>
+      </ng-template>
+  </ng-template>
+  </p-menubar>
+</div>
+<div class="card-container" style="background-color: rgb(7, 40, 40);">
+<div class="card-item content-info mt-2  bg-blue-100 " *ngFor="let task of tasks">
+  <p-card   [header]="task.title" class="bg-blue-500">
+    <ng-template pTemplate="content">
+      {{task.description}}
+      <br>
+      <br>
+      <p-divider/>
+      <label for="status" class="font-semibold w-3rem">Status:</label>
+      {{task.status}}
+      <br>
+      <br>
+      <label for="dueDate" class="font-semibold w-3rem">Due Date:</label>
+      {{task.dueDate}}
+      <br>
+      <br>
+      <div class="flex gap-3 mt-1">
+        <p-button label="Delete" severity="secondary" [outlined]="true" class="w-full" styleClass="w-full" (click)="delete(task.id, $event)">
+          <i class="pi pi-times" style="color: red"></i></p-button>
+        <p-button label="Update" (onClick)="showDialog(task)"  class="w-full" styleClass="w-full" >
+        <i class="pi pi-pencil" style="color: white"></i></p-button>
+    </div>
+<p-dialog header="Update Task" [(visible)]="visible" [style]="{ width: '27rem' }">
+  <span class="p-text-secondary block mb-3">Update your information.</span>
+  <p-divider />
+  <form #postTaskForm="ngForm">
+    <div class="field">
+      <label for="title" class="font-semibold w-6rem">Title</label>
+      <input type="text"
+      pInputText
+      [(ngModel)]="taskForm.title"
+      id="title"
+      name="title"
+      #title="ngModel"
+      class="w-full"
+      placeholder="Enter a title"
+      required />
+    </div>
+    @if(title.invalid && (title.dirty || title.touched)){
+      <small class="block p-error">
+        @if(title.hasError('required')) {
+        <span>Title is required</span>
+        } @else if(title.errors) {
+        <span>Title is invalid</span>
+        }
+      </small>
+      }
+
+    <div class="field">
+      <label for="description" class="font-semibold w-6rem">Description</label>
+      <textarea
+          rows="5"
+          cols="30"
+          pInputText
+          id="description"
+          name="description"
+          [(ngModel)]="taskForm.description"
+           (change)="textChange($event)">
+     </textarea>
+    </div>
+      <div class="flex flex-wrap gap-3">
+        <label for="status" class="font-semibold w-3rem">Status:</label>
+        <div class="flex align-items-center">
+            <p-radioButton
+                name="Pending"
+                value="PENDING"
+                [(ngModel)]="taskForm.status"
+                inputId="status1"
+                 />
+            <label for="status1" class="ml-2">
+                Pending
+            </label>
+        </div>
+
+        <div class="flex align-items-center">
+            <p-radioButton
+                name="Completed"
+                value="COMPLETED"
+                [(ngModel)]="taskForm.status"
+                 inputId="status2"
+                />
+            <label for="status2" class="ml-2">
+                Completed
+            </label>
+        </div>
+        <br>
+        @if(taskForm.status==undefined || taskForm.status==''){
+          <small class="block p-error">
+            @if(task.status==''|| task.status==undefined) {
+            <span>Status is required</span>
+            }
+          </small>
+          }
+    </div>
+    <br>
+    <div class="flex-auto">
+      <label for="icondisplay" class="font-bold block mb-2"> Due Date: </label>
+      <p-calendar
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          inputId="icondisplay"
+          [showTime]="false"
+          id="dueDate"
+          name="dueDate"
+          (click)="calenderValue($event)"/>
+  </div>
+
+  </form>
+  <br>
+  <br>
+  <div class="flex justify-content-end gap-2">
+      <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+      <p-button label="Save" (click)="update(taskForm)" />
+  </div>
+</p-dialog>
+
+</ng-template>
+</p-card>
+</div>
+</div>
